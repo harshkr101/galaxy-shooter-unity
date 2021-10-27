@@ -13,12 +13,18 @@ public class Player : MonoBehaviour
     private float _nextFire = 0.0f;
     [SerializeField]
     private int _life = 3;
+    private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
 
     void Start()
     {
         transform.position = new Vector3(0,0,0);
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (!_spawnManager)
+        {
+            Debug.LogError("Spawn Manager is null");
+        }
     }
 
     // Update is called once per frame
@@ -64,6 +70,7 @@ public class Player : MonoBehaviour
         _life--;
         if (_life < 1)
         {
+            _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
     }

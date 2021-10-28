@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-    private float _speed = 8.0f;
+    private float _speed = 6.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // destroy enemy and damage player if player collides with enemy
         if (other.tag == "Player")

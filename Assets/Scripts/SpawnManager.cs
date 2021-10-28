@@ -10,12 +10,15 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] 
     private GameObject _enemyContainer;
 
+    [SerializeField] private GameObject _tipleShotPowerupPrefab;
+
     private bool _stopSpwanning = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 
     // Update is called once per frame
@@ -24,7 +27,7 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    IEnumerator SpawnRoutine()
+    IEnumerator SpawnEnemyRoutine()
     {
         while (!_stopSpwanning)
         {
@@ -33,6 +36,16 @@ public class SpawnManager : MonoBehaviour
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5.0f);
 
+        }
+    }
+
+    IEnumerator SpawnPowerupRoutine()
+    {
+        while (!_stopSpwanning)
+        {
+            Vector3 spawnPosition = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            Instantiate(_tipleShotPowerupPrefab, spawnPosition, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(3, 8));
         }
     }
 

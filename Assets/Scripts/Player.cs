@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 12.0f;
-    [SerializeField]
-    private GameObject _laserPrefab;
+    [SerializeField] private float speed = 12.0f;
+    [SerializeField] private GameObject _laserPrefab;
+    [SerializeField] private GameObject _tripleShotPrefab;
+    [SerializeField] private int _life = 3;
+    [SerializeField] private bool _isTripleShotActive = false;
     
     public float fireRate = 0.5f;
-    private float _nextFire = 0.0f;
-    [SerializeField]
-    private int _life = 3;
+    private float _nextFire = -1f;
     private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
@@ -41,7 +40,14 @@ public class Player : MonoBehaviour
     void FireLaser()
     {
         _nextFire = Time.time + fireRate;
-        Instantiate(_laserPrefab, transform.position + new Vector3(0,1.05f,0), Quaternion.identity);
+        if (_isTripleShotActive)
+        {
+            Instantiate(_tripleShotPrefab, transform.position , Quaternion.identity);     
+        }
+        else
+        {
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+        }
     }
 
     void CalculateMovement()
@@ -78,5 +84,17 @@ public class Player : MonoBehaviour
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
+    }
+
+    public void TripleShotActive()
+    {
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isTripleShotActive = false;
     }
 }

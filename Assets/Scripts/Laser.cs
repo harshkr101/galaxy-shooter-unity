@@ -20,6 +20,10 @@ public class Laser : MonoBehaviour
         // destroy laser object after it left view area
         if (transform.position.y > 8f)
         {
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
             Destroy(this.gameObject);
         }
     }

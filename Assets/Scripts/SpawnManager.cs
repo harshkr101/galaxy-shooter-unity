@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] 
     private GameObject _enemyContainer;
 
-    [SerializeField] private GameObject _tipleShotPowerupPrefab;
+    [SerializeField] private GameObject[] powerups;
 
     private bool _stopSpwanning = false;
     
@@ -44,7 +46,8 @@ public class SpawnManager : MonoBehaviour
         while (!_stopSpwanning)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-8f, 8f), 7, 0);
-            Instantiate(_tipleShotPowerupPrefab, spawnPosition, Quaternion.identity);
+            int randomPowerUp = Random.Range(0, 2);
+            Instantiate(powerups[randomPowerUp], spawnPosition, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 8));
         }
     }

@@ -5,10 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float speed = 12.0f;
+    private float _speedMultiplier = 2.0f;
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private GameObject _tripleShotPrefab;
     [SerializeField] private int _life = 3;
-    [SerializeField] private bool _isTripleShotActive = false;
+    private bool _isTripleShotActive = false;
+    private bool _isSpeedBoostActive = false;
     
     public float fireRate = 0.5f;
     private float _nextFire = -1f;
@@ -86,15 +88,32 @@ public class Player : MonoBehaviour
         }
     }
 
+    // method to activate triple shot powerUp
     public void TripleShotActive()
     {
         _isTripleShotActive = true;
         StartCoroutine(TripleShotPowerDownRoutine());
     }
-
+    
+    // special method to power down triple shot powerUp
     IEnumerator TripleShotPowerDownRoutine()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(5.0f); //wait for 5 seconds
         _isTripleShotActive = false;
+    }
+
+    // method to activate speedBoost powerUp
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        speed *=  _speedMultiplier;
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+    // method to power down speed boost powerUp
+    IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f); // wait for 5 seconds
+        _isSpeedBoostActive = false;
+        speed /= _speedMultiplier;
     }
 }

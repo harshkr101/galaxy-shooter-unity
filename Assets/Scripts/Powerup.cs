@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Powerup : MonoBehaviour
@@ -34,21 +31,21 @@ public class Powerup : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
+                //activate powerUP based on their ID
                 switch (powerupID)
                 {
                     case 0:
-                        player.TripleShotActive();
+                        player.TripleShotActive(); 
                         break;
                      case 1:
                         player.SpeedBoostActive();
                          break;
                      case 2:
-                         Debug.Log("Shields UP");
+                         player.ShieldsActive();
                          break;
                      default: Debug.Log("default");
                          break;
                 }
-                player.TripleShotActive(); // activate triple shot power up
             }
             Destroy(this.gameObject);  // destroy power up object
         }

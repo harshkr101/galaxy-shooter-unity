@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,11 +8,18 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private GameObject _tripleShotPrefab;
     [SerializeField] private int _life = 3;
+    
+    //powerUp flags
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
+    private bool _isShieldsActive = false;
+
+    [SerializeField] private GameObject _shieldVisualizer;
     
+    // fire rate for laser
     public float fireRate = 0.5f;
     private float _nextFire = -1f;
+
     private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
@@ -80,6 +86,12 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_isShieldsActive)
+        {
+            _isShieldsActive = false;
+            _shieldVisualizer.SetActive(false);
+            return;
+        }
         _life--;
         if (_life < 1)
         {
@@ -115,5 +127,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5.0f); // wait for 5 seconds
         _isSpeedBoostActive = false;
         speed /= _speedMultiplier;
+    }
+
+    public void ShieldsActive()
+    {
+        _isShieldsActive = true;
+        _shieldVisualizer.SetActive(true);
     }
 }

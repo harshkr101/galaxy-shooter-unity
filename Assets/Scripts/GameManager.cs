@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         // load scene when game is over and R key is pressed by player
         if(Input.GetKeyDown(KeyCode.R) && _isGameOver)
         {
-            SceneManager.LoadScene(0); // load current game scene
+            SceneManager.LoadScene(1); // load current game scene
         }
     }
 

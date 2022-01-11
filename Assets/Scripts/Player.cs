@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] private int _life = 3;
     [SerializeField] private GameObject _shieldVisualizer;
     [SerializeField] private int _score;
+    [SerializeField] private GameObject _leftEngine;
+    [SerializeField] private GameObject _rightEngine;
+
     //powerUp flags
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
@@ -101,6 +104,14 @@ public class Player : MonoBehaviour
         }
         _life--;
         _uiManager.UpdateLives(_life);
+        if (_life == 2)
+        {
+            _leftEngine.SetActive(true);
+        }else if (_life == 1)
+        {
+            _rightEngine.SetActive(true);   
+        }
+
         if (_life < 1)
         {
             _spawnManager.OnPlayerDeath();

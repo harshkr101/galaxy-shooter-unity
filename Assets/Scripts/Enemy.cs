@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // destroy enemy and damage player if player collides with enemy
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             Player player = other.transform.GetComponent<Player>();
             if (player != null)
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
         }
         
         // destroy enemy and laser if laser collides with enemy
-        if (other.tag == "Laser")
+        if (other.CompareTag("Laser"))
         {
             Destroy(other.gameObject);
             if (_player != null)

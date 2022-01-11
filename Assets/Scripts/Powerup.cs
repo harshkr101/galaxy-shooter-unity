@@ -26,7 +26,7 @@ public class Powerup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.transform.tag == "Player")
+        if (other.transform.CompareTag("Player"))
         {
             Player player = other.GetComponent<Player>();
             if (player != null)

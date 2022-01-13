@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     private float _speed = 6.0f;
     private Player _player;
     private Animator _animator;
+    private AudioSource _audioSource;
     
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,11 @@ public class Enemy : MonoBehaviour
         if (_animator == null)
         {
             Debug.LogError("Animator is null");
+        }
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            Debug.LogError("Audio Source is null");
         }
     }
 
@@ -48,6 +54,7 @@ public class Enemy : MonoBehaviour
             _speed = 0;
             // destroy enemy object
             Destroy(this.gameObject,2.8f);
+            _audioSource.Play();
         }
         
         // destroy enemy and laser if laser collides with enemy
@@ -63,6 +70,7 @@ public class Enemy : MonoBehaviour
             _speed = 0;
             // destroy enemy object
             Destroy(this.gameObject,2.8f);
+            _audioSource.Play();
         }
     }
 }

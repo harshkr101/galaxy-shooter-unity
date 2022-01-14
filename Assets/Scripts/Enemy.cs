@@ -52,6 +52,7 @@ public class Enemy : MonoBehaviour
             // trigger enemy destruction animation
             _animator.SetTrigger("OnEnemyDeath");
             _speed = 0;
+            Destroy(GetComponent<Collider2D>()); // destroy the collider 
             // destroy enemy object
             Destroy(this.gameObject,2.8f);
             _audioSource.Play();
@@ -68,6 +69,7 @@ public class Enemy : MonoBehaviour
             // trigger enemy destruction animation
             _animator.SetTrigger("OnEnemyDeath");
             _speed = 0;
+            Destroy(GetComponent<Collider2D>()); // destroy the collider 
             // destroy enemy object
             Destroy(this.gameObject,2.8f);
             _audioSource.Play();
